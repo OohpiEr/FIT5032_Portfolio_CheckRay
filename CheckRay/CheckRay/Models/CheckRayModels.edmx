@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="adminId" />
+          </Key>
+          <Property Name="adminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="adminFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="adminLastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingId" />
+          </Key>
+          <Property Name="bookingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctorId" Type="int" />
+          <Property Name="patientId" Type="int" Nullable="false" />
+          <Property Name="facilityId" Type="int" Nullable="false" />
+          <Property Name="status" Type="bit" />
+          <Property Name="reviewId" Type="int" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="doctorId" />
+          </Key>
+          <Property Name="doctorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doctorEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="doctorFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="doctorLastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Facility">
+          <Key>
+            <PropertyRef Name="facilityId" />
+          </Key>
+          <Property Name="facilityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="facilityName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="facilityAddress" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="patientId" />
+          </Key>
+          <Property Name="patientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patientEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="patientFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="patientLastName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="reviewId" />
+          </Key>
+          <Property Name="reviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reviewRating" Type="int" />
+          <Property Name="reviewComment" Type="nvarchar(max)" />
+          <Property Name="patientId" Type="int" />
+        </EntityType>
+        <Association Name="FK__Booking__doctorI__7E37BEF6">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctorId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="doctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__facilit__7F2BE32F">
+          <End Role="Facility" Type="Self.Facility" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facility">
+              <PropertyRef Name="facilityId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="facilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__patient__7D439ABD">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patientId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__reviewI__00200768">
+          <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="reviewId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="reviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__patientI__778AC167">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patientId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Facility" EntityType="Self.Facility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Booking__doctorI__7E37BEF6" Association="Self.FK__Booking__doctorI__7E37BEF6">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__facilit__7F2BE32F" Association="Self.FK__Booking__facilit__7F2BE32F">
+            <End Role="Facility" EntitySet="Facility" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__patient__7D439ABD" Association="Self.FK__Booking__patient__7D439ABD">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__reviewI__00200768" Association="Self.FK__Booking__reviewI__00200768">
+            <End Role="Review" EntitySet="Review" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__patientI__778AC167" Association="Self.FK__Review__patientI__778AC167">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="adminId" />
+          </Key>
+          <Property Name="adminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adminFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adminLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingId" />
+          </Key>
+          <Property Name="bookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctorId" Type="Int32" />
+          <Property Name="patientId" Type="Int32" Nullable="false" />
+          <Property Name="facilityId" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="reviewId" Type="Int32" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Booking__doctorI__7E37BEF6" FromRole="Booking" ToRole="Doctor" />
+          <NavigationProperty Name="Facility" Relationship="Self.FK__Booking__facilit__7F2BE32F" FromRole="Booking" ToRole="Facility" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Booking__patient__7D439ABD" FromRole="Booking" ToRole="Patient" />
+          <NavigationProperty Name="Review" Relationship="Self.FK__Booking__reviewI__00200768" FromRole="Booking" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="doctorId" />
+          </Key>
+          <Property Name="doctorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doctorEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="doctorFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="doctorLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__doctorI__7E37BEF6" FromRole="Doctor" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Facility">
+          <Key>
+            <PropertyRef Name="facilityId" />
+          </Key>
+          <Property Name="facilityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="facilityName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="facilityAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__facilit__7F2BE32F" FromRole="Facility" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="patientId" />
+          </Key>
+          <Property Name="patientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patientFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="patientLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__patient__7D439ABD" FromRole="Patient" ToRole="Booking" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK__Review__patientI__778AC167" FromRole="Patient" ToRole="Review" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="reviewId" />
+          </Key>
+          <Property Name="reviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reviewRating" Type="Int32" />
+          <Property Name="reviewComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="patientId" Type="Int32" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Booking__reviewI__00200768" FromRole="Review" ToRole="Booking" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Review__patientI__778AC167" FromRole="Review" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK__Booking__doctorI__7E37BEF6">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctorId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="doctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__facilit__7F2BE32F">
+          <End Role="Facility" Type="Self.Facility" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facility">
+              <PropertyRef Name="facilityId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="facilityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__patient__7D439ABD">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patientId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Booking__reviewI__00200768">
+          <End Role="Review" Type="Self.Review" Multiplicity="0..1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Review">
+              <PropertyRef Name="reviewId" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="reviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__patientI__778AC167">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patientId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="patientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CheckRayModels" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Facilities" EntityType="Self.Facility" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <AssociationSet Name="FK__Booking__doctorI__7E37BEF6" Association="Self.FK__Booking__doctorI__7E37BEF6">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__facilit__7F2BE32F" Association="Self.FK__Booking__facilit__7F2BE32F">
+            <End Role="Facility" EntitySet="Facilities" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__patient__7D439ABD" Association="Self.FK__Booking__patient__7D439ABD">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Booking__reviewI__00200768" Association="Self.FK__Booking__reviewI__00200768">
+            <End Role="Review" EntitySet="Reviews" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__patientI__778AC167" Association="Self.FK__Review__patientI__778AC167">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CheckRayModels">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="Model.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="adminId" ColumnName="adminId" />
+                <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
+                <ScalarProperty Name="adminFirstName" ColumnName="adminFirstName" />
+                <ScalarProperty Name="adminLastName" ColumnName="adminLastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="Model.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="bookingId" ColumnName="bookingId" />
+                <ScalarProperty Name="doctorId" ColumnName="doctorId" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="facilityId" ColumnName="facilityId" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="reviewId" ColumnName="reviewId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="Model.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="doctorId" ColumnName="doctorId" />
+                <ScalarProperty Name="doctorEmail" ColumnName="doctorEmail" />
+                <ScalarProperty Name="doctorFirstName" ColumnName="doctorFirstName" />
+                <ScalarProperty Name="doctorLastName" ColumnName="doctorLastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Facilities">
+            <EntityTypeMapping TypeName="Model.Facility">
+              <MappingFragment StoreEntitySet="Facility">
+                <ScalarProperty Name="facilityId" ColumnName="facilityId" />
+                <ScalarProperty Name="facilityName" ColumnName="facilityName" />
+                <ScalarProperty Name="facilityAddress" ColumnName="facilityAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="Model.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="patientEmail" ColumnName="patientEmail" />
+                <ScalarProperty Name="patientFirstName" ColumnName="patientFirstName" />
+                <ScalarProperty Name="patientLastName" ColumnName="patientLastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="Model.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="reviewId" ColumnName="reviewId" />
+                <ScalarProperty Name="reviewRating" ColumnName="reviewRating" />
+                <ScalarProperty Name="reviewComment" ColumnName="reviewComment" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
