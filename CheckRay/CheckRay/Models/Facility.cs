@@ -7,9 +7,9 @@ namespace CheckRay.Models
 {
     public class Facility
     {
-        public int facilityId { get; set; }
-        public string facilityName { get; set; }
-        public string facilityAddress { get; set; }
+        public int FacilityId { get; set; }
+        public string FacilityName { get; set; }
+        public string FacilityAddress { get; set; }
 
         //public virtual ICollection<Booking> Bookings { get; set; }
 

@@ -8,11 +8,11 @@ namespace CheckRay.Models
 {
     public class User
     {
-        public int id { get; }
-        public string email { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public int role { get; set; }
+        public int Id { get; }
+        public string Email { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Role { get; set; }
 
         enum Role : int
         {

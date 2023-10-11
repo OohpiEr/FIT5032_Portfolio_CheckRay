@@ -7,10 +7,10 @@ namespace CheckRay.Models
 {
     public class Review
     {
-        public int id { get; set; }
-        public int rating { get; set; }
-        public string comment { get; set; }
-        public virtual User user{ get; set; }
+        public int Id { get; set; }
+        public int Rating { get; set; }
+        public string Comment { get; set; }
+        public virtual User User{ get; set; }
         //public int patientId { get; set; }
         //public virtual ICollection<Booking> Bookings { get; set; }
     }

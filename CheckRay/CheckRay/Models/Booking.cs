@@ -8,14 +8,13 @@ namespace CheckRay.Models
 {
     public class Booking
     {
-        public int id { get; set; }
-        public DateTime datetime { get; set; }
-        public virtual Facility facility { get; set; }
-        public virtual User patient { get; set; }
-        public virtual User doctor { get; set; }
-        public bool status { get; set; }
-        public ICollection<string> images{ get; set; }
-        //public int reviewId { get; set; }
-        public virtual Review review { get; set; }
+        public int Id { get; set; }
+        public DateTime Datetime { get; set; }
+        public virtual Facility Facility { get; set; }
+        public virtual User Patient { get; set; }
+        public virtual User Doctor { get; set; }
+        public bool Status { get; set; }
+        public ICollection<string> Images{ get; set; }
+        public virtual Review Review { get; set; }
     }
 }
