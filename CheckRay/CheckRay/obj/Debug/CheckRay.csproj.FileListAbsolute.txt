@@ -69,10 +69,7 @@ C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\Che
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\Newtonsoft.Json.dll
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\Owin.dll
-C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Net.Http.Formatting.dll
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Helpers.dll
-C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Http.dll
-C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Http.WebHost.dll
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Mvc.dll
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Optimization.dll
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Razor.dll
@@ -89,9 +86,6 @@ C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\Che
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.WebPages.Razor.xml
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\Newtonsoft.Json.xml
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\Antlr3.Runtime.pdb
-C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Net.Http.Formatting.xml
-C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Http.xml
-C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\System.Web.Http.WebHost.xml
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\EntityFramework.xml
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\EntityFramework.SqlServer.xml
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRay\CheckRay\bin\Microsoft.AspNet.Identity.Core.xml
