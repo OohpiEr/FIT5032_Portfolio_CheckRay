@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Landing";
+    Layout = "~/Views/Shared/_LayoutLanding.cshtml";
+}
+
+<main>
+    <section class="row" aria-labelledby="landingTitle">
+        <div class="row">
+            <img id="title-img" src="~/Content/img/landing_bg_xray_flower.jpg" class="img-fluid" alt="Responsive image">
+
+            <div class="landing-title-group">
+                <h1 class="display-1" id="title">CHECK RAY</h1>
+                <p class="lead">
+                    Welcome to CheckRay: Your Complete X-Ray Management Solution
+                </p>
+
+                <p>@Html.ActionLink("Get Started", "Login", "Account", new { area = "" }, new { @class = "btn btn-secondary btn-md" })</p>
+            </div>
+        </div>
+    </section>
+
+</main>
