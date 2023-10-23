@@ -78,7 +78,6 @@ namespace CheckRayApp.Controllers
                 ViewBag.Patients = patients;
             }
 
-
             return View();
         }
 
@@ -87,7 +86,7 @@ namespace CheckRayApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Datetime,Status")] Booking booking, string Facilities)
+        public ActionResult Create([Bind(Include = "Id,Datetime,Status")] Booking booking, string Facilities, string Patients = null)
         {
             try
             {
@@ -98,6 +97,9 @@ namespace CheckRayApp.Controllers
                 if (currentUser.isPatient())
                 {
                     booking.Patient = currentUser;
+                } else
+                {
+                    booking.Patient = db.Users.Find(Int32.Parse(Patients));
                 }
             } catch
             {
