@@ -21,8 +21,14 @@ namespace CheckRayApp.Models
         {
             return this.UserRole.Equals((int) Role.ADMIN);
         }
-
-
+        public bool isDoctor()
+        {
+            return this.UserRole.Equals((int)Role.DOCTOR);
+        }
+        public bool isPatient()
+        {
+            return this.UserRole.Equals((int)Role.PATIENT);
+        }
         public enum Role : int
         {
             ADMIN = 1,

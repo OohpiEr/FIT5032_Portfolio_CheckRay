@@ -9,12 +9,26 @@ using System.Web;
 using System.Web.Mvc;
 using CheckRay.Context;
 using CheckRayApp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CheckRayApp.Controllers
 {
     public class BookingsController : Controller
     {
         private CheckRayAppContext db = new CheckRayAppContext();
+        private User currentUser = null;
+
+        private User GetCurrentUser()
+        {
+            if (currentUser == null)
+            {
+                string userId = User.Identity.GetUserId();
+                User user = db.Users.Where(u => u.UserId == userId).ToList().First();
+                currentUser = user;
+            }
+
+            return currentUser;
+        }
 
         // GET: Bookings
         public ActionResult Index()
@@ -40,14 +54,30 @@ namespace CheckRayApp.Controllers
         // GET: Bookings/Create
         public ActionResult Create()
         {
-
-            List<SelectListItem>  items = db.Facilities.Select(f => new SelectListItem
+            List<SelectListItem>  facilities = db.Facilities.Select(f => new SelectListItem
             {
                 Text = f.FacilityName,
                 Value = f.FacilityId.ToString()
             }).ToList();
+            ViewBag.Facilities = facilities;
 
-            ViewBag.Facilities = items;
+            ViewBag.isPatient = false;
+            User currentUser = GetCurrentUser();
+            if (currentUser.isPatient())
+            {
+                ViewBag.isPatient = true;
+            } else
+            {
+                List<SelectListItem> patients = db.Users
+                    .Where(p => p.UserRole == (int) CheckRayApp.Models.User.Role.PATIENT)
+                    .Select(p => new SelectListItem
+                    {
+                        Text = p.FirstName + " " + p.LastName,
+                        Value = p.Id.ToString()
+                    }).ToList();
+                ViewBag.Patients = patients;
+            }
+
 
             return View();
         }
@@ -63,10 +93,19 @@ namespace CheckRayApp.Controllers
             {
                 //System.Diagnostics.Debug.WriteLine(Facilities);
                 booking.Facility = db.Facilities.Find(Int32.Parse(Facilities));
+
+                User currentUser = GetCurrentUser();
+                if (currentUser.isPatient())
+                {
+                    booking.Patient = currentUser;
+                }
             } catch
             {
                 return HttpNotFound();
             }
+
+            
+
 
             if (ModelState.IsValid)
             {

@@ -201,6 +201,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\IAuthorizedCheckRayUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-CheckRayApp-20231016071008.mdf" />
