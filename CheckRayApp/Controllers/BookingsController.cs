@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using CheckRay.Context;
@@ -11,8 +12,6 @@ using CheckRayApp.Models;
 
 namespace CheckRayApp.Controllers
 {
-
-    [Authorize]
     public class BookingsController : Controller
     {
         private CheckRayAppContext db = new CheckRayAppContext();
@@ -41,6 +40,15 @@ namespace CheckRayApp.Controllers
         // GET: Bookings/Create
         public ActionResult Create()
         {
+
+            List<SelectListItem>  items = db.Facilities.Select(f => new SelectListItem
+            {
+                Text = f.FacilityName,
+                Value = f.FacilityId.ToString()
+            }).ToList();
+
+            ViewBag.Facilities = items;
+
             return View();
         }
 
@@ -49,8 +57,17 @@ namespace CheckRayApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Datetime,Status")] Booking booking)
+        public ActionResult Create([Bind(Include = "Id,Datetime,Status")] Booking booking, string Facilities)
         {
+            try
+            {
+                //System.Diagnostics.Debug.WriteLine(Facilities);
+                booking.Facility = db.Facilities.Find(Int32.Parse(Facilities));
+            } catch
+            {
+                return HttpNotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 db.Bookings.Add(booking);
