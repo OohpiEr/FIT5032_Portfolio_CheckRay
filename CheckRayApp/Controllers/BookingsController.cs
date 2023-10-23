@@ -30,6 +30,46 @@ namespace CheckRayApp.Controllers
             return currentUser;
         }
 
+        private void InitFacilitiesDropdown()
+        {
+            List<SelectListItem> facilities = db.Facilities.Select(f => new SelectListItem
+            {
+                Text = f.FacilityName,
+                Value = f.FacilityId.ToString()
+            }).ToList();
+            ViewBag.Facilities = facilities;
+        }
+        private void InitPatientsDropdown()
+        {
+            ViewBag.isPatient = false;
+            User currentUser = GetCurrentUser();
+            if (currentUser.isPatient())
+            {
+                ViewBag.isPatient = true;
+            }
+            else
+            {
+                List<SelectListItem> patients = db.Users
+                    .Where(p => p.UserRole == (int)CheckRayApp.Models.User.Role.PATIENT)
+                    .Select(p => new SelectListItem
+                    {
+                        Text = p.FirstName + " " + p.LastName,
+                        Value = p.Id.ToString()
+                    }).ToList();
+                ViewBag.Patients = patients;
+            }
+        }
+        private void InitDoctorsDropdown()
+        {
+            List<SelectListItem> doctors = db.Users
+                   .Where(p => p.UserRole == (int)CheckRayApp.Models.User.Role.DOCTOR)
+                   .Select(p => new SelectListItem
+                   {
+                       Text = p.FirstName + " " + p.LastName,
+                       Value = p.Id.ToString()
+                   }).ToList();
+            ViewBag.Doctors = doctors;
+        }
         // GET: Bookings
         public ActionResult Index()
         {
@@ -54,38 +94,9 @@ namespace CheckRayApp.Controllers
         // GET: Bookings/Create
         public ActionResult Create()
         {
-            List<SelectListItem>  facilities = db.Facilities.Select(f => new SelectListItem
-            {
-                Text = f.FacilityName,
-                Value = f.FacilityId.ToString()
-            }).ToList();
-            ViewBag.Facilities = facilities;
-
-            List<SelectListItem> doctors = db.Users
-                    .Where(p => p.UserRole == (int)CheckRayApp.Models.User.Role.DOCTOR)
-                    .Select(p => new SelectListItem
-                    {
-                        Text = p.FirstName + " " + p.LastName,
-                        Value = p.Id.ToString()
-                    }).ToList();
-            ViewBag.Doctors = doctors;
-
-            ViewBag.isPatient = false;
-            User currentUser = GetCurrentUser();
-            if (currentUser.isPatient())
-            {
-                ViewBag.isPatient = true;
-            } else
-            {
-                List<SelectListItem> patients = db.Users
-                    .Where(p => p.UserRole == (int) CheckRayApp.Models.User.Role.PATIENT)
-                    .Select(p => new SelectListItem
-                    {
-                        Text = p.FirstName + " " + p.LastName,
-                        Value = p.Id.ToString()
-                    }).ToList();
-                ViewBag.Patients = patients;
-            }
+            InitDoctorsDropdown();
+            InitFacilitiesDropdown();
+            InitPatientsDropdown();
 
             return View();
         }
@@ -116,8 +127,6 @@ namespace CheckRayApp.Controllers
                 return HttpNotFound();
             }
 
-            
-
 
             if (ModelState.IsValid)
             {
@@ -141,6 +150,10 @@ namespace CheckRayApp.Controllers
             {
                 return HttpNotFound();
             }
+            InitDoctorsDropdown();
+            InitFacilitiesDropdown();
+            InitPatientsDropdown();
+
             return View(booking);
         }
 
@@ -149,11 +162,33 @@ namespace CheckRayApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Datetime,Status")] Booking booking)
+        public ActionResult Edit([Bind(Include = "Id,Datetime,Status,Facility,Patient,Doctor")] Booking booking, string Facilities, string Doctors, string Patients = null)
         {
+            //TODO: FIX THIS
+            Booking tempBooking = db.Bookings.Find(booking.Id);
+            try
+            {
+                tempBooking.Facility = db.Facilities.Find(Int32.Parse(Facilities));
+                tempBooking.Doctor = db.Users.Find(Int32.Parse(Doctors));
+
+                User currentUser = GetCurrentUser();
+                if (currentUser.isPatient())
+                {
+                    tempBooking.Patient = currentUser;
+                }
+                else
+                {
+                    tempBooking.Patient = db.Users.Find(Int32.Parse(Patients));
+                }
+            }
+            catch
+            {
+                return HttpNotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(booking).State = EntityState.Modified;
+                db.Entry(tempBooking).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
