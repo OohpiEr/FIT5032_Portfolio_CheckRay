@@ -61,6 +61,15 @@ namespace CheckRayApp.Controllers
             }).ToList();
             ViewBag.Facilities = facilities;
 
+            List<SelectListItem> doctors = db.Users
+                    .Where(p => p.UserRole == (int)CheckRayApp.Models.User.Role.DOCTOR)
+                    .Select(p => new SelectListItem
+                    {
+                        Text = p.FirstName + " " + p.LastName,
+                        Value = p.Id.ToString()
+                    }).ToList();
+            ViewBag.Doctors = doctors;
+
             ViewBag.isPatient = false;
             User currentUser = GetCurrentUser();
             if (currentUser.isPatient())
@@ -86,12 +95,13 @@ namespace CheckRayApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Datetime,Status")] Booking booking, string Facilities, string Patients = null)
+        public ActionResult Create([Bind(Include = "Id,Datetime,Status")] Booking booking, string Facilities, string Doctors, string Patients = null)
         {
             try
             {
                 //System.Diagnostics.Debug.WriteLine(Facilities);
                 booking.Facility = db.Facilities.Find(Int32.Parse(Facilities));
+                booking.Doctor= db.Users.Find(Int32.Parse(Doctors));
 
                 User currentUser = GetCurrentUser();
                 if (currentUser.isPatient())

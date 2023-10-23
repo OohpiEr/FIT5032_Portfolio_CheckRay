@@ -146,6 +146,7 @@ namespace CheckRayApp.Controllers
         public ActionResult Edit([Bind(Include = "Id,Email,FirstName,LastName,UserRole")] User user)
         {
             User currentUser = GetCurrentUser();
+            user.UserId = User.Identity.GetUserId();
 
             //if admin
             if (CheckAdminRole(false))
@@ -155,7 +156,7 @@ namespace CheckRayApp.Controllers
                 {
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
-                    //return RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
                 return View(user);
             }
