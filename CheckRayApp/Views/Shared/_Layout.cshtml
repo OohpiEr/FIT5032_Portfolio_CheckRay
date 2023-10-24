@@ -7,6 +7,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/landing.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
@@ -27,7 +29,7 @@
             </div>
         </div>
     </nav>
-    
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -38,6 +40,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
