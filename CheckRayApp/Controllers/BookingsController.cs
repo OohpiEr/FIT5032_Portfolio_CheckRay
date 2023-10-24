@@ -88,6 +88,7 @@ namespace CheckRayApp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.StatusMsg = booking.GetStatusString();
             return View(booking);
         }
 
