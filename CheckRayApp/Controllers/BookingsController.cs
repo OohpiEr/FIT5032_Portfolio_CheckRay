@@ -172,6 +172,7 @@ namespace CheckRayApp.Controllers
             {
                 tempBooking.Facility = db.Facilities.Find(Int32.Parse(Facilities));
                 tempBooking.Doctor = db.Users.Find(Int32.Parse(Doctors));
+                tempBooking.Status = booking.Status;
 
                 User currentUser = GetCurrentUser();
                 if (currentUser.isPatient())
