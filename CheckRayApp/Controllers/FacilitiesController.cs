@@ -8,14 +8,15 @@ using System.Web;
 using System.Web.Mvc;
 using CheckRay.Context;
 using CheckRayApp.Models;
+using CheckRayApp.Utils;
 
 namespace CheckRayApp.Controllers
 {
 
     [Authorize]
-    public class FacilitiesController : Controller
+    public class FacilitiesController : CheckRayController
     {
-        private CheckRayAppContext db = new CheckRayAppContext();
+        //private CheckRayAppContext db = new CheckRayAppContext();
 
         // GET: Facilities
         public ActionResult Index()

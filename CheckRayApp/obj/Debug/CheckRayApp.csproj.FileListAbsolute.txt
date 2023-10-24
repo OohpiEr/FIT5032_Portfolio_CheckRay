@@ -110,3 +110,5 @@ C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRayApp\
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRayApp\obj\Debug\CheckRayApp.csproj.GenerateResource.cache
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRayApp\obj\Debug\CheckRayApp.Migrations.add_UserId.resources
 C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRayApp\obj\Debug\CheckRayApp.Migrations.changed_user_pk.resources
+C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRayApp\obj\Debug\CheckRayApp.Migrations.added_userroles.resources
+C:\Users\oohpi\OneDrive\Documents\GitHub\FIT5032_Portfolio_CheckRay\CheckRayApp\obj\Debug\CheckRayApp.Migrations.removed_userroles.resources

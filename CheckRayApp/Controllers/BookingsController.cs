@@ -9,26 +9,14 @@ using System.Web;
 using System.Web.Mvc;
 using CheckRay.Context;
 using CheckRayApp.Models;
+using CheckRayApp.Utils;
 using Microsoft.AspNet.Identity;
 
 namespace CheckRayApp.Controllers
 {
-    public class BookingsController : Controller
+    public class BookingsController : CheckRayController
     {
-        private CheckRayAppContext db = new CheckRayAppContext();
-        private User currentUser = null;
-
-        private User GetCurrentUser()
-        {
-            if (currentUser == null)
-            {
-                string userId = User.Identity.GetUserId();
-                User user = db.Users.Where(u => u.UserId == userId).ToList().First();
-                currentUser = user;
-            }
-
-            return currentUser;
-        }
+        //private CheckRayAppContext db = new CheckRayAppContext();
 
         private void InitFacilitiesDropdown()
         {

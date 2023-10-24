@@ -10,44 +10,35 @@ using System.Web.Security;
 using CheckRay.Context;
 using CheckRayApp.Migrations;
 using CheckRayApp.Models;
+using CheckRayApp.Utils;
 using Microsoft.AspNet.Identity;
+using static System.Net.Mime.MediaTypeNames;
+using static CheckRayApp.Models.User;
 
 namespace CheckRayApp.Controllers
 {
     [Authorize]
-    public class UsersController : Controller
+    public class UsersController : CheckRayController
     {
-        private CheckRayAppContext db = new CheckRayAppContext();
-        private User currentUser  = null;
-
-        private User GetCurrentUser()
-        {
-            if (currentUser == null)
+        //private CheckRayAppContext db = new CheckRayAppContext();
+        private List<SelectListItem> roleList = new List<SelectListItem>
             {
-                string userId = User.Identity.GetUserId();
-                User user = db.Users.Where(u => u.UserId == userId).ToList().First();
-                currentUser = user;
-            }
-
-            return currentUser;
-        }
-
-        private bool CheckAdminRole(bool redirect)
-        {
-            User user = GetCurrentUser();
-
-            if (!user.isAdmin())
-            {
-                if (redirect)
+                new SelectListItem {
+                    Text = ((int) CheckRayApp.Models.User.Role.PATIENT).ToString(),
+                    Value = CheckRayApp.Models.User.Role.PATIENT.ToString()
+            },
+                new SelectListItem {
+                    Text = ((int) CheckRayApp.Models.User.Role.DOCTOR).ToString(),
+                    Value = CheckRayApp.Models.User.Role.DOCTOR.ToString()
+            },
+                new SelectListItem
                 {
-                    Response.Redirect("home", false);
-                }
-                return false;
-            }
+                    Text = ((int)CheckRayApp.Models.User.Role.ADMIN).ToString(),
+                    Value = CheckRayApp.Models.User.Role.ADMIN.ToString()
+                },
+            };
 
-            return true;
-
-        }
+        
 
         // GET: Users
         [Authorize]
@@ -124,8 +115,11 @@ namespace CheckRayApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+            // if current user is not admin and not editing own self
             User currentUser = GetCurrentUser();
-            if (!CheckAdminRole(false) && currentUser.Id != id)
+            bool isAdmin = CheckAdminRole(false);
+            ViewBag.isAdmin = isAdmin;
+            if (!isAdmin && currentUser.Id != id)
             {
                 Response.Redirect("home", false);
             }
@@ -135,23 +129,54 @@ namespace CheckRayApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            InitUserRolesDropdown();
+
             return View(user);
         }
+
+        //private void InitUserRolesDropdown(int id = -1)
+        //{
+        //    ViewBag.UserRoles = new SelectList(this.roleList, "Text", "Value");
+        //}
+        private void InitUserRolesDropdown()
+        {
+            List<SelectListItem> userRoles = new List<SelectListItem>
+            {
+                new SelectListItem {
+                    Value = ((int) CheckRayApp.Models.User.Role.PATIENT).ToString(),
+                    Text = CheckRayApp.Models.User.Role.PATIENT.ToString()
+            },
+                new SelectListItem {
+                    Value = ((int) CheckRayApp.Models.User.Role.DOCTOR).ToString(),
+                    Text = CheckRayApp.Models.User.Role.DOCTOR.ToString()
+            },
+                new SelectListItem
+                {
+                    Value = ((int)CheckRayApp.Models.User.Role.ADMIN).ToString(),
+                    Text = CheckRayApp.Models.User.Role.ADMIN.ToString()
+                },
+            };
+            ViewBag.UserRoles = userRoles;
+
+    }
 
         // POST: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,FirstName,LastName,UserRole")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Email,FirstName,LastName,UserRole,UserId")] User user, string UserRoles)
         {
             User currentUser = GetCurrentUser();
-            user.UserId = User.Identity.GetUserId();
+            //user.UserRoles = new SelectList(this.roleList, "Text", "Value"); // add this
+
+            //user.UserId = User.Identity.GetUserId();
 
             //if admin
             if (CheckAdminRole(false))
             {
-                //user.UserId = User.Identity.GetUserId();
+                user.UserRole = Int32.Parse(UserRoles);
                 if (ModelState.IsValid)
                 {
                     db.Entry(user).State = EntityState.Modified;
@@ -179,8 +204,8 @@ namespace CheckRayApp.Controllers
             {
                 db.Entry(currentUser).State = EntityState.Modified;
                 db.SaveChanges();
-                //return RedirectToAction("Index");
-                return View(user);
+                return RedirectToAction("Index");
+                //return View(user);
             }
 
             

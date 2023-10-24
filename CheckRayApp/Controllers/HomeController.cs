@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CheckRayApp.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace CheckRayApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CheckRayController
     {
         public ActionResult Index()
         {

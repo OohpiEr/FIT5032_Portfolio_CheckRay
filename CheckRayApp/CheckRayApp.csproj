@@ -191,6 +191,14 @@
     <Compile Include="Migrations\202310181452327_changed_user_pk.designer.cs">
       <DependentUpon>202310181452327_changed_user_pk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202310241056030_added_userroles.cs" />
+    <Compile Include="Migrations\202310241056030_added_userroles.designer.cs">
+      <DependentUpon>202310241056030_added_userroles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202310241059533_removed_userroles.cs" />
+    <Compile Include="Migrations\202310241059533_removed_userroles.designer.cs">
+      <DependentUpon>202310241059533_removed_userroles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Booking.cs" />
@@ -551,7 +559,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Compile Include="Utils\AuthorizeRole.cs" />
+    <Compile Include="Utils\CheckRayController.cs" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -617,6 +625,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202310181452327_changed_user_pk.resx">
       <DependentUpon>202310181452327_changed_user_pk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310241056030_added_userroles.resx">
+      <DependentUpon>202310241056030_added_userroles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202310241059533_removed_userroles.resx">
+      <DependentUpon>202310241059533_removed_userroles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

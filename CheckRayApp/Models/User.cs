@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CheckRayApp.Models
 {
@@ -16,7 +17,7 @@ namespace CheckRayApp.Models
         public string LastName { get; set; }
         public int UserRole { get; set; }
         public string UserId { get; set; }
-
+        //public SelectList UserRoles { get; set; }
         public bool isAdmin()
         {
             return this.UserRole.Equals((int) Role.ADMIN);
