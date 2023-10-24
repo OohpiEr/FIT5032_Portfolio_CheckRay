@@ -111,6 +111,7 @@ namespace CheckRayApp.Controllers
             try
             {
                 //System.Diagnostics.Debug.WriteLine(Facilities);
+                booking.Status = false;
                 booking.Facility = db.Facilities.Find(Int32.Parse(Facilities));
                 booking.Doctor= db.Users.Find(Int32.Parse(Doctors));
 

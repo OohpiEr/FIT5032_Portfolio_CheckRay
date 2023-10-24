@@ -16,5 +16,19 @@ namespace CheckRayApp.Models
         public bool Status { get; set; }
         public ICollection<string> Images{ get; set; }
         public virtual Review Review { get; set; }
+
+        public string GetStatusString()
+        {
+            string statusStr = "Incomplete";
+
+            if (this.Status) {
+                statusStr = "Complete";
+            }
+
+            return statusStr;
+        }
     }
+
+    
+    
 }
