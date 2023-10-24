@@ -51,7 +51,7 @@ namespace CheckRayApp.Utils
             ViewBag.isAdmin = false;
             if (User.Identity.IsAuthenticated)
             {
-                //ViewBag.isAdmin = CheckAdminRole(false);
+                ViewBag.isAdmin = CheckAdminRole(false);
             }
         }
     }

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CheckRayApp.Controllers
 {
+    [RequireHttps]
     public class HomeController : CheckRayController
     {
         public ActionResult Index()

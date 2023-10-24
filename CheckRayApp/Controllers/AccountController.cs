@@ -57,6 +57,15 @@ namespace CheckRayApp.Controllers
             }
         }
 
+        private CheckRayApp.Models.User AddCheckRayUser(ApplicationUser user)
+        {
+            var checkRayUser = new CheckRayApp.Models.User { UserId = user.Id, Email = user.Email, UserRole = (int)CheckRayApp.Models.User.Role.PATIENT };
+            db.Users.Add(checkRayUser);
+            db.SaveChanges();
+
+            return checkRayUser;
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -161,9 +170,10 @@ namespace CheckRayApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    var checkRayUser = new CheckRayApp.Models.User { UserId = user.Id, Email = model.Email, UserRole = (int)CheckRayApp.Models.User.Role.PATIENT };
-                    db.Users.Add(checkRayUser);
-                    db.SaveChanges();
+                    //var checkRayUser = new CheckRayApp.Models.User { UserId = user.Id, Email = model.Email, UserRole = (int)CheckRayApp.Models.User.Role.PATIENT };
+                    //db.Users.Add(checkRayUser);
+                    //db.SaveChanges();
+                    CheckRayApp.Models.User checkRayUser = this.AddCheckRayUser(user);
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
@@ -386,6 +396,7 @@ namespace CheckRayApp.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        AddCheckRayUser(user);
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

@@ -58,11 +58,11 @@ namespace CheckRayApp
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "1090808697222-nemg0ftu6i1lm48f4qsta5tun82dih5j.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
         }
     }
 }
